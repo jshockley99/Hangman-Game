@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hangman Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="assets/javascript/game.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1><strong>Scary Hangman</strong></h1>
+        <div class="main">
+        	<h3>Press any key to start!</h3>
+            <div>Current Word</div>
+            <div id="word-container" class="holder"></div>
+            <div>Letters already guessed:</div>
+            <div id="letters-guessed" class="holder"></div>
+            <div>Number of guesses remaining:</div>
+            <div>Wins:</div>
+            <div id="win-counter"><span></span></div>
+            <div id=game-over><h1>Game Over</h1></div>
+        </div>
+        <img id="noose" src="assets/images/hanging-rope-1295442_1280.png" height="200px">
+	</div>
+</body>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+	var word;
+	var wordSpace;
+	var lettersGuessed = [];
+	var guessCounter = 0;
+	var winCounter = 0;
+
+//listen for any key click to start game
+
+//display a random word (from the array) after any key pressed
+
+//use key events to listen for the letters that players type
+
+//if matches word, then fill in/reveal letter 
+
+//decrease guesses remaining
+
+//display/track letters already guessed/typed
+$("#letters-guessed").append(lettersGuessed + ", "); 
+
+//track wins or words completed
+
+//automatically start new game after word complete or guesses remaining is 0
+
+
+
+
+}
+</script>
+
+</html>

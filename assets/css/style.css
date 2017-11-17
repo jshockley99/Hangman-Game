@@ -1,0 +1,35 @@
+body {
+	background: black;
+	text-align: center;
+}
+
+h1 {
+	font-family: 'Nosifer', cursive;
+	color: red;
+}
+
+h1, h2, h3 {
+	padding: 20px;
+}
+
+.main {
+	height: 500px;
+	background: white;
+	color: black;
+
+}
+#noose {
+	position:absolute; 
+	top: 0px; 
+	left: 100px; 
+	height: 300px;
+	visibility: hidden;
+}
+
+#game-over {
+	visibility: hidden;
+}
+
+.holder {
+	height: 50px;
+}
