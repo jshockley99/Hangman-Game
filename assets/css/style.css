@@ -1,0 +1,40 @@
+body {
+	background: black;
+	text-align: center;
+}
+
+h1 {
+	font-family: 'Nosifer', cursive;
+	color: red;
+}
+
+h1, h2, h3 {
+	padding: 20px;
+}
+
+.main {
+	height: 500px;
+	background: white;
+	color: black;
+
+}
+
+#word-container {
+	letter-spacing: 5px;
+	text-transform: uppercase;
+}
+
+#noose {
+	position:absolute; 
+	top: -180px; 
+	left: 100px; 
+	height: 300px;
+}
+
+#game-over {
+	visibility: hidden;
+}
+
+.holder {
+	height: 50px;
+}

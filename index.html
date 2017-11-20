@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hangman Game</title>
+    <link href="https://fonts.googleapis.com/css?family=Nosifer" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script text="text/javascript" src="assets/javascript/game.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1><strong>Scary Hangman</strong></h1>
+        <div class="main">
+            <h3>Press any letter to start!</h3>
+            <div>
+                <h4>Current Word</h4></div>
+            <div>
+                <h4 id="word-container" class="holder"></h4></div>
+            <div>
+                <h4>Letters already guessed:</h4></div>
+            <div>
+                <h4 id="letters-guessed" class="holder"></h4></div>
+            <div>
+                <h4>Number of guesses remaining:</h4></div>
+            <div>
+                <h4 id="guess-counter"></h4></div>
+            <div>
+                <h4>Wins:</h4></div>
+            <div>
+                <h4 id="win-counter"></h4></div>
+            <div>
+                <h4>Losses:</h4></div>
+            <div>
+                <h4 id="loss-counter"></h4></div>
+            <div id=game-over>
+                <h1>Game Over</h1></div>
+        </div>
+        <img id="noose" src="assets/images/hanging-rope-1295442_1280.png" height="200px">
+    </div>
+</body>
+<script type="text/javascript">
+$(document).ready(function() {
+
+    var lettersGuessed = [];
+    var guessCounter = 10;
+    var winCounter = 0;
+    var lossCounter = 0;
+
+    var wordList = ["witch", "ghost", "goblin", "zombie", "spider", "skeleton", "graveyard", "snake", "blood", "darkness"]
+    var word = wordList[Math.floor(Math.random() * wordList.length)];
+
+    // loop through to append '-' for every letter in wordAnswer
+    function wordBlanks(wordAnswer) {
+    	var wordIndexed = wordAnswer.split("");
+        for (var i = 0; i < wordIndexed.length; i++) {
+            $("#word-container").append("-");
+        }
+    }
+
+    //display a random word (from the array) and set counters
+    $("#guess-counter").text(guessCounter);
+    $("#win-counter").text(winCounter);
+    $("#loss-counter").text(lossCounter);
+    wordBlanks(word);
+
+	console.log(word);
+    
+    //reset counter and word, add to wins or losses
+    function reset(win) {
+        if (win) {
+            winCounter++;
+            $("#win-counter").text(winCounter);
+            alert("You won!");
+        } else {
+            lossCounter++;
+            $("#loss-counter").text(lossCounter);
+            alert("You lost. Try again.");
+        }
+        lettersGuessed = [];
+        $("#letters-guessed").text(lettersGuessed);
+        guessCounter = 10;
+        $("#guess-counter").text(guessCounter);
+        $("#word-container").empty();
+        word = wordList[Math.floor(Math.random() * wordList.length)];
+        wordBlanks(word);
+        console.log(word);
+    }
+
+
+    //use key events to listen for the letters that players type
+    //create a loop the looks through an array of the word, compare the key pressed equals to the index. if it matches, display. if it doesn't, add it to letters guessed
+    function setCharAt(str, index, chr) {
+        if (index > str.length - 1) return str;
+        return str.substr(0, index) + chr + str.substr(index + 1);
+    }
+
+    $(document).on("keyup", function(e) {
+        var letterPressed = e.key;
+        var isAlphabet = (e.keyCode >= 65 && e.keyCode <= 90) || (e.keyCode >= 97 && e.keyCode <= 122);
+        var letterInWord = word.includes(letterPressed);
+        var stringword = $("#word-container").html();
+
+        //if matches word, then fill in/reveal letter 
+        if (letterInWord) {
+            var indices = [];
+            for (i = 0; i < word.length; i++) {
+                if (word[i] === letterPressed)
+                    indices.push(i);
+            }
+            for (var j = 0; j < indices.length; j++) {
+                var numToMatch = indices[j];
+                stringword = setCharAt(stringword, numToMatch, letterPressed);
+                $("#word-container").text(stringword);
+            }
+
+        //if the letter is not in the word, then decrease guesses remaining and add letter to letters guessed
+        } else if (isAlphabet) {
+            $("#letters-guessed").append(letterPressed + ", ");
+            guessCounter--;
+            $("#guess-counter").text(guessCounter);            
+        } else {}
+
+        //automatically start new game after word complete or guesses remaining is 0
+        if (guessCounter === 0) {
+            reset(false);
+        } else if (stringword.includes("-")) {} else { reset(true) }
+    })
+
+});
+</script>
+
+</html>
