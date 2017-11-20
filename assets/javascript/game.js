@@ -27,7 +27,7 @@ $(document).ready(function() {
     //if 3 losses, end game. if 3 wins, play special surprise
     function gameover() {
         if (lossCounter === 3) {
-            $("#word-container").hide();
+            $(".main").hide();
             $("#game-over").show();
         }
         else if (winCounter === 3) {

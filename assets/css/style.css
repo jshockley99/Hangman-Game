@@ -38,6 +38,7 @@ h1, h2, h3 {
 #game-over {
 	display: none;
 	z-index: 1;
+	padding: 100px 0;
 }
 
 #surprise {
