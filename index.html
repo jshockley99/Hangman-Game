@@ -16,17 +16,27 @@
     <div class="container">
         <h1><strong>Scary Hangman</strong></h1>
         <div class="main">
-            <h3>Press the Enter key to start!</h3>
-            <div>Current Word</div>
-            <div id="word-container" class="holder"></div>
-            <div>Letters already guessed:</div>
-            <div id="letters-guessed" class="holder"></div>
-            <div>Number of guesses remaining:</div>
-            <div id="guess-counter"></div>
-            <div>Wins:</div>
-            <div id="win-counter"></div>
-            <div>Losses:</div>
-            <div id="loss-counter"></div>
+            <h3>Press any letter to start!</h3>
+            <div>
+                <h4>Current Word</h4></div>
+            <div>
+                <h4 id="word-container" class="holder"></h4></div>
+            <div>
+                <h4>Letters already guessed:</h4></div>
+            <div>
+                <h4 id="letters-guessed" class="holder"></h4></div>
+            <div>
+                <h4>Number of guesses remaining:</h4></div>
+            <div>
+                <h4 id="guess-counter"></h4></div>
+            <div>
+                <h4>Wins:</h4></div>
+            <div>
+                <h4 id="win-counter"></h4></div>
+            <div>
+                <h4>Losses:</h4></div>
+            <div>
+                <h4 id="loss-counter"></h4></div>
             <div id=game-over>
                 <h1>Game Over</h1></div>
         </div>
@@ -36,7 +46,6 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-    var word;
     var lettersGuessed = [];
     var guessCounter = 10;
     var winCounter = 0;
@@ -44,20 +53,23 @@ $(document).ready(function() {
 
     var wordList = ["witch", "ghost", "goblin", "zombie", "spider", "skeleton", "graveyard", "snake", "blood", "darkness"]
     var word = wordList[Math.floor(Math.random() * wordList.length)];
-    var wordIndexed = word.split("");
 
-    // loop through to append '_' for every letter in wordAnswer
+    // loop through to append '-' for every letter in wordAnswer
     function wordBlanks(wordAnswer) {
+    	var wordIndexed = wordAnswer.split("");
         for (var i = 0; i < wordIndexed.length; i++) {
-            $("#word-container").append("_ ");
+            $("#word-container").append("-");
         }
     }
 
     //display a random word (from the array) and set counters
     $("#guess-counter").text(guessCounter);
     $("#win-counter").text(winCounter);
+    $("#loss-counter").text(lossCounter);
     wordBlanks(word);
 
+	console.log(word);
+    
     //reset counter and word, add to wins or losses
     function reset(win) {
         if (win) {
@@ -73,12 +85,12 @@ $(document).ready(function() {
         $("#letters-guessed").text(lettersGuessed);
         guessCounter = 10;
         $("#guess-counter").text(guessCounter);
-        var anotherWord = wordList[Math.floor(Math.random() * wordList.length)];
-        wordBlanks(anotherWord);
-        console.log(anotherWord);
+        $("#word-container").empty();
+        word = wordList[Math.floor(Math.random() * wordList.length)];
+        wordBlanks(word);
+        console.log(word);
     }
 
-    console.log(word);
 
     //use key events to listen for the letters that players type
     //create a loop the looks through an array of the word, compare the key pressed equals to the index. if it matches, display. if it doesn't, add it to letters guessed
@@ -102,24 +114,21 @@ $(document).ready(function() {
             }
             for (var j = 0; j < indices.length; j++) {
                 var numToMatch = indices[j];
-                console.log(stringword);
                 stringword = setCharAt(stringword, numToMatch, letterPressed);
                 $("#word-container").text(stringword);
-                console.log(stringword);
             }
 
         //if the letter is not in the word, then decrease guesses remaining and add letter to letters guessed
         } else if (isAlphabet) {
             $("#letters-guessed").append(letterPressed + ", ");
             guessCounter--;
-            $("#guess-counter").text(guessCounter);
-            if (guessCounter === 0) {
-                reset(false);
-            } else if (stringword.includes("_")) {} else { reset(true) }
+            $("#guess-counter").text(guessCounter);            
         } else {}
 
         //automatically start new game after word complete or guesses remaining is 0
-
+        if (guessCounter === 0) {
+            reset(false);
+        } else if (stringword.includes("-")) {} else { reset(true) }
     })
 
 });
